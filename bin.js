@@ -1,12 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const meow = require('meow');
-const Conf = require('conf');
 const ora = require('ora');
 const getIssues = require('./getIssues');
 const groupSimilarIssues = require('./groupSimilarIssues');
+const config = require('./config');
 
-const config = new Conf();
 const { flags, showHelp } = meow(
     `
     Usage
@@ -38,11 +37,7 @@ const { flags, showHelp } = meow(
     }
 );
 
-const { organizationSlug, projectSlug, token } = {
-    organizationSlug: flags.organizationSlug || config.get('organizationSlug'),
-    projectSlug: flags.projectSlug || config.get('projectSlug'),
-    token: flags.token || config.get('token')
-};
+const { organizationSlug, projectSlug, token } = config.get(flags);
 
 if (flags.clear) {
     config.clear();
@@ -50,9 +45,7 @@ if (flags.clear) {
     showHelp();
 } else {
     if (flags.save) {
-        config.set('organizationSlug', organizationSlug);
-        config.set('projectSlug', projectSlug);
-        config.set('token', token);
+        config.save({ organizationSlug, projectSlug, token });
     }
 
     (async function run() {
