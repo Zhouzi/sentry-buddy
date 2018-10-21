@@ -1,0 +1,37 @@
+{
+  "name": "sentry-buddy",
+  "version": "0.1.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zhouzi/sentry-buddy.git"
+  },
+  "keywords": [
+    "sentry",
+    "buddy"
+  ],
+  "author": "Gabin Aureche <hello@gabinaureche.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zhouzi/sentry-buddy/issues"
+  },
+  "homepage": "https://github.com/Zhouzi/sentry-buddy#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-gitbook": "^4.0.1",
+    "eslint-plugin-flowtype": "^2.50.3",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "^2.7.0",
+    "eslint-plugin-react": "^7.11.1",
+    "prettier": "^1.14.3"
+  },
+  "dependencies": {
+    "conf": "^2.0.0",
+    "got": "^9.2.2",
+    "meow": "^5.0.0",
+    "ora": "^3.0.0",
+    "parse-link-header": "^1.0.1",
+    "string-similarity": "^2.0.0"
+  }
+}
