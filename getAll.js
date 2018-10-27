@@ -1,18 +1,18 @@
-const got = require('got');
+const axios = require('axios');
 const parseLinkHeader = require('parse-link-header');
 
-const baseUrl = 'https://sentry.io/api/0';
+const baseURL = 'https://sentry.io/api/0';
 
 async function getAll(url, token, results = []) {
-    const { body, headers } = await got(url, {
-        baseUrl,
-        json: true,
+    const client = axios.create({
+        baseURL,
         headers: {
             Authorization: `Bearer ${token}`
         }
     });
+    const { data, headers } = await client.get(url);
     const { next } = parseLinkHeader(headers.link);
-    const newResults = results.concat(body);
+    const newResults = results.concat(data);
 
     return next.results === 'true'
         ? getAll(next.url, token, newResults)
