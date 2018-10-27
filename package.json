@@ -16,6 +16,10 @@
     "url": "https://github.com/Zhouzi/sentry-buddy/issues"
   },
   "homepage": "https://github.com/Zhouzi/sentry-buddy#readme",
+  "main": "index.js",
+  "bin": {
+    "sentry-budy": "bin.js"
+  },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-gitbook": "^4.0.1",
