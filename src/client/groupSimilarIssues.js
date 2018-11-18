@@ -1,6 +1,8 @@
-const stringSimilarity = require('string-similarity');
+/* @flow */
+import stringSimilarity from 'string-similarity';
+import type { Issue } from './getIssues';
 
-function groupSimilarIssues(issues) {
+function groupSimilarIssues(issues: Issue[]): { [title: string]: string[] } {
     return issues.reduce((acc, { title }) => {
         const similarIssue = Object.keys(acc).find(
             key => stringSimilarity.compareTwoStrings(key, title) > 0.7
@@ -18,4 +20,4 @@ function groupSimilarIssues(issues) {
     }, {});
 }
 
-module.exports = groupSimilarIssues;
+export default groupSimilarIssues;

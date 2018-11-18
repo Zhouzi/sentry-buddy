@@ -1,9 +1,17 @@
-const axios = require('axios');
-const parseLinkHeader = require('parse-link-header');
+/* @flow */
+import axios from 'axios';
+import parseLinkHeader from 'parse-link-header';
 
 const baseURL = 'https://sentry.io/api/0';
 
-async function getAll(url, token, results = []) {
+/*
+ * Get all items from a endpoint by going through the next directive.
+ */
+async function getAll<T>(
+    url: string,
+    token: string,
+    results: T[] = []
+): Promise<T[]> {
     const client = axios.create({
         baseURL,
         headers: {
@@ -19,4 +27,4 @@ async function getAll(url, token, results = []) {
         : newResults;
 }
 
-module.exports = getAll;
+export default getAll;

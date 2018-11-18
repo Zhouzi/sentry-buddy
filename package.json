@@ -1,27 +1,8 @@
 {
-  "name": "sentry-buddy",
-  "version": "0.1.0",
-  "description": "",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Zhouzi/sentry-buddy.git"
-  },
-  "keywords": [
-    "sentry",
-    "buddy"
-  ],
-  "author": "Gabin Aureche <hello@gabinaureche.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Zhouzi/sentry-buddy/issues"
-  },
-  "homepage": "https://github.com/Zhouzi/sentry-buddy#readme",
+  "private": true,
   "scripts": {
+    "types": "flow",
     "lint": "eslint ."
-  },
-  "main": "index.js",
-  "bin": {
-    "sentry-budy": "bin.js"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
@@ -31,13 +12,11 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^2.7.0",
     "eslint-plugin-react": "^7.11.1",
+    "flow-bin": "^0.86.0",
     "prettier": "^1.14.3"
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "conf": "^2.0.0",
-    "meow": "^5.0.0",
-    "ora": "^3.0.0",
     "parse-link-header": "^1.0.1",
     "string-similarity": "^2.0.0"
   }
