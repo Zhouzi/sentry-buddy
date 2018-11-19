@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "name": "sentry-buddy",
   "scripts": {
     "types": "flow",
     "lint": "eslint ."
@@ -16,7 +16,10 @@
     "prettier": "^1.14.3"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "conf": "^2.1.0",
+    "got": "^9.3.2",
+    "meow": "^5.0.0",
+    "ora": "^3.0.0",
     "parse-link-header": "^1.0.1",
     "string-similarity": "^2.0.0"
   }
