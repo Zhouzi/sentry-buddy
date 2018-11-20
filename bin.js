@@ -3,6 +3,10 @@ const ora = require('ora');
 const got = require('got');
 const meow = require('meow');
 const parseLinkHeader = require('parse-link-header');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const express = require('express');
 
 const config = new Conf();
 
@@ -70,8 +74,38 @@ const { flags, showHelp } = meow(
         const spinner = ora('Fetching issues...').start();
         try {
             const issues = await getIssues(orgSlug, projectSlug, token);
-            console.log(issues);
-            spinner.succeed('Congratulations!');
+            spinner.text = 'Starting server...';
+
+            try {
+                const app = express();
+                app.use(
+                    webpackDevMiddleware(
+                        webpack({
+                            entry: './src/index.js',
+                            mode: 'development',
+                            plugins: [
+                                new webpack.DefinePlugin({
+                                    'process.env.SENTRY_ISSUES': JSON.stringify(
+                                        issues
+                                    )
+                                }),
+                                new HTMLWebpackPlugin()
+                            ]
+                        }),
+                        {
+                            lazy: true,
+                            logLevel: 'silent'
+                        }
+                    )
+                );
+                app.listen(3000, () => {
+                    spinner.succeed('Server started on port 3000');
+                });
+            } catch (err) {
+                spinner.fail(
+                    `Failed to start server on port 3000: ${err.message}`
+                );
+            }
         } catch (err) {
             spinner.fail(`Failed to fetch Sentry issues: ${err.message}`);
         }
