@@ -7,6 +7,8 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const express = require('express');
+const getPort = require('get-port');
+const open = require('opn');
 
 const config = new Conf();
 
@@ -83,13 +85,57 @@ const { flags, showHelp } = meow(
                         webpack({
                             entry: './src/index.js',
                             mode: 'development',
+                            module: {
+                                rules: [
+                                    {
+                                        test: /\.js$/,
+                                        exclude: /node_modules/,
+                                        use: [
+                                            {
+                                                loader: 'babel-loader',
+                                                options: {
+                                                    presets: [
+                                                        '@babel/preset-env',
+                                                        '@babel/preset-react',
+                                                        '@babel/preset-flow'
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        test: /\.css$/,
+                                        use: ['style-loader', 'css-loader']
+                                    },
+                                    {
+                                        test: /\.svg$/,
+                                        use: [
+                                            {
+                                                loader: '@svgr/webpack',
+                                                options: {
+                                                    icon: true,
+                                                    svgProps: {}
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
                             plugins: [
                                 new webpack.DefinePlugin({
                                     'process.env.SENTRY_ISSUES': JSON.stringify(
                                         issues
+                                    ),
+                                    'process.env.SENTRY_ORG': JSON.stringify(
+                                        orgSlug
+                                    ),
+                                    'process.env.SENTRY_PROJECT': JSON.stringify(
+                                        projectSlug
                                     )
                                 }),
-                                new HTMLWebpackPlugin()
+                                new HTMLWebpackPlugin({
+                                    template: './src/index.html'
+                                })
                             ]
                         }),
                         {
@@ -98,8 +144,11 @@ const { flags, showHelp } = meow(
                         }
                     )
                 );
-                app.listen(3000, () => {
-                    spinner.succeed('Server started on port 3000');
+                const port = await getPort({ port: 1234 });
+                app.listen(port, () => {
+                    const url = `http://localhost:${port}`;
+                    spinner.succeed(`Server started: ${url}`);
+                    open(url);
                 });
             } catch (err) {
                 spinner.fail(
