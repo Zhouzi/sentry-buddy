@@ -62,4 +62,4 @@ typings/
 
 # Project specific
 .idea
-stats.json
+dist
