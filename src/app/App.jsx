@@ -7,6 +7,7 @@ import Issues from './Issues';
 
 function App() {
   const [issues, setIssues] = React.useState(null);
+  const [isLoading, setLoading] = React.useState(false);
 
   const onSubmitCredentials = (credentials: {
     organizationSlug: string,
@@ -14,12 +15,15 @@ function App() {
     token: string,
   }) => {
     const { organizationSlug, projectSlug, token } = credentials;
+
+    setLoading(true);
     fetch(
       `/api/sentry?organizationSlug=${organizationSlug}&projectSlug=${projectSlug}&token=${token}`
     )
       .then(res => res.json())
       .then(newIssues => {
         setIssues(newIssues);
+        setLoading(false);
       });
   };
 
@@ -27,7 +31,7 @@ function App() {
     <Content>
       <Head />
       {issues == null ? (
-        <CredentialsPrompt onSubmitCredentials={onSubmitCredentials} />
+        <CredentialsPrompt isLoading={isLoading} onSubmitCredentials={onSubmitCredentials} />
       ) : (
         <Issues issues={issues} />
       )}

@@ -16,6 +16,10 @@ const Button = styled(View).attrs({ as: 'button' })`
   padding: ${spacing.small} ${spacing.larger};
   border-radius: ${misc.borderRadius};
   transition: background-color 150ms ease-out;
+  
+  &[disabled] {
+    pointer-events: none;
+  }
 
   ${props =>
     props.secondary &&
