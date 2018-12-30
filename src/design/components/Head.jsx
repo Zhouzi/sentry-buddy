@@ -25,9 +25,14 @@ function Head() {
   return (
     <React.Fragment>
       <Reset />
-      <Helmet>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:400,900" />
-      </Helmet>
+      <Helmet
+        link={[
+          {
+            rel: 'stylesheet',
+            href: 'https://fonts.googleapis.com/css?family=Muli:400,900',
+          },
+        ]}
+      />
     </React.Fragment>
   );
 }

@@ -2,6 +2,7 @@
 import * as React from 'react';
 import rgba from 'hex-rgba';
 import styled from 'styled-components';
+import { ComboKey } from 'react-combo-keys';
 import { KeyboardArrowLeft, KeyboardArrowRight } from 'styled-icons/material';
 import { spacing, colors, misc, fontSize } from '../constants';
 
@@ -35,23 +36,27 @@ const Label = styled.div``;
 
 function Pagination({
   current,
-  max,
-  onChange,
+  onNext,
+  onPrevious,
 }: {
   current: number,
-  max: number,
-  onChange: number => void,
+  onNext: () => void,
+  onPrevious: () => void,
 }) {
   return (
-    <Container>
-      <Button onClick={() => onChange(current - 1 < 0 ? max - 1 : current - 1)}>
-        <KeyboardArrowLeft size={14} />
-      </Button>
-      <Label>{current + 1}</Label>
-      <Button onClick={() => onChange(current + 1 >= max ? 0 : current + 1)}>
-        <KeyboardArrowRight size={14} />
-      </Button>
-    </Container>
+    <React.Fragment>
+      <ComboKey combo="left" onTrigger={onPrevious} />
+      <ComboKey combo="right" onTrigger={onNext} />
+      <Container>
+        <Button onClick={onPrevious}>
+          <KeyboardArrowLeft size={14} />
+        </Button>
+        <Label>{current + 1}</Label>
+        <Button onClick={onNext}>
+          <KeyboardArrowRight size={14} />
+        </Button>
+      </Container>
+    </React.Fragment>
   );
 }
 
