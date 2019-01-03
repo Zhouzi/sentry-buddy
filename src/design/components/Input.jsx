@@ -13,7 +13,8 @@ const Container = styled.div`
   line-height: ${lineHeight.small};
 `;
 const Label = styled.div`
-  color: ${rgba(colors.black, 60)};
+  color: ${rgba(colors.black, 50)};
+  line-height: ${lineHeight.smaller};
   position: absolute;
   left: ${spacing.small};
   transition-duration: 250ms;
@@ -23,8 +24,10 @@ const Label = styled.div`
   ${props =>
     props.isFloating
       ? css`
-          top: 0.6rem;
-          font-size: ${fontSize.small};
+          top: 0.8rem;
+          font-size: ${fontSize.smaller};
+          letter-spacing: 0.05rem;
+          text-transform: uppercase;
         `
       : css`
           top: 50%;
@@ -37,8 +40,8 @@ const Input = styled(View).attrs({ as: 'input' })`
   border: 0;
   background: transparent;
 
-  padding: ${calc(`calc(${spacing.small} + 0.44rem)`)} ${spacing.small}
-    ${calc(`calc(${spacing.small} - 0.44rem)`)} ${spacing.small};
+  padding: ${calc(`calc(${spacing.small} + 0.4rem)`)} ${spacing.small}
+    ${calc(`calc(${spacing.small} - 0.4rem)`)} ${spacing.small};
   border-radius: ${misc.borderRadius};
   background-color: ${colors.white};
   display: block;
