@@ -3,7 +3,7 @@ import * as React from 'react';
 import { X } from 'styled-icons/octicons';
 import { User, Copy, DownArrow } from 'styled-icons/boxicons-solid';
 import { LinkExternal } from 'styled-icons/boxicons-regular';
-import { Cards, Container, Heading, Button, Pagination, spacing } from '../design';
+import { Cards, Container, Heading, Button, Pagination } from '../design';
 
 type Issue = {
   title: string,
@@ -66,14 +66,16 @@ function Issues({ issues }: { issues: Issue[] }) {
       <Container>
         <Button marginRight="normal" secondary>
           Open
-          <LinkExternal size={22} style={{ marginLeft: spacing.small }} />
+          <Button.Icon>
+            <LinkExternal size={18} />
+          </Button.Icon>
         </Button>
-        <Button.Group marginRight="normal">
-          <Button primary>Tag</Button>
-          <Button primary icon>
-            <DownArrow size={14} />
-          </Button>
-        </Button.Group>
+        <Button marginRight="normal" primary>
+          Tag
+          <Button.Icon>
+            <DownArrow size={18} />
+          </Button.Icon>
+        </Button>
         <Pagination current={currentIndex} onNext={onNext} onPrevious={onPrevious} />
       </Container>
     </React.Fragment>
