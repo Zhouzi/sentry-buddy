@@ -25,5 +25,5 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  plugins: [new HTMLWebpackPlugin()],
+  plugins: [new HTMLWebpackPlugin({ title: 'Sentry Buddy' })],
 };

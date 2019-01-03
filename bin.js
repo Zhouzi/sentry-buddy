@@ -3,6 +3,7 @@ const parseLinkHeader = require('parse-link-header');
 const webpack = require('webpack');
 const middleware = require('webpack-dev-middleware');
 const express = require('express');
+const open = require('opn');
 const config = require('./webpack.config');
 
 const baseURL = 'https://sentry.io/api/0';
@@ -59,10 +60,4 @@ app.get('/api/sentry', async (req, res) => {
 app.use(middleware(compiler));
 
 const port = 3000;
-app.listen(port, err => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(`sentry-buddy is available at http://localhost:${port}`);
-  }
-});
+app.listen(port, () => open(`http://localhost:${port}`));
