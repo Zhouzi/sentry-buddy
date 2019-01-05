@@ -26,14 +26,24 @@ function getIssues({ organizationSlug, projectSlug, token }) {
   return getAll(`/projects/${organizationSlug}/${projectSlug}/issues/`, token);
 }
 
+// Sentry's search tool doesn't work well with strings containing ":"
+// so this function returns the longest string that doesn't contain a ":"
+function getSearchQuery(title) {
+  const parts = title.split(':');
+  const longestPart = parts.sort((a, b) => b.length - a.length)[0];
+
+  return longestPart.trim();
+}
+
 const compiler = webpack(config);
 const app = express();
 
 app.get('/api/sentry', async (req, res) => {
+  const { organizationSlug, projectSlug, token } = req.query;
   const rawIssues = await getIssues({
-    organizationSlug: req.query.organizationSlug,
-    projectSlug: req.query.projectSlug,
-    token: req.query.token,
+    organizationSlug,
+    projectSlug,
+    token,
   });
   const issuesMap = rawIssues.reduce(
     (acc, issue) =>
@@ -44,6 +54,9 @@ app.get('/api/sentry', async (req, res) => {
               events: acc[issue.title].events + Number(issue.count),
               users: acc[issue.title].users + issue.userCount,
               duplicates: acc[issue.title].duplicates + 1,
+              url: `https://sentry.io/${organizationSlug}/${projectSlug}?query=${encodeURIComponent(
+                `is:unresolved ${getSearchQuery(issue.title)}`
+              )}`,
             }
           : {
               id: issue.id,
@@ -51,6 +64,7 @@ app.get('/api/sentry', async (req, res) => {
               events: Number(issue.count),
               users: issue.userCount,
               duplicates: 0,
+              url: issue.permalink,
             },
       }),
     {}

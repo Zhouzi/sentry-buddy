@@ -12,6 +12,7 @@ type Issue = {
   events: number,
   users: number,
   duplicates: number,
+  url: string,
 };
 
 const CATEGORIES = {
@@ -80,7 +81,7 @@ function Issues({ issues }: { issues: Issue[] }) {
         </Cards>
       </Container>
       <Container>
-        <Button marginRight="normal" secondary>
+        <Button as="a" href={currentIssue.url} target="_blank" marginRight="normal" secondary>
           Open
           <Button.Icon>
             <LinkExternal size={18} />

@@ -11,6 +11,7 @@ const Button = styled(View).attrs({ as: 'button' })`
   border: ${misc.borderWidth} solid transparent;
   background: transparent;
   cursor: pointer;
+  text-decoration: none;
 
   position: relative;
   font-size: ${fontSize.large};
