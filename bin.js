@@ -40,12 +40,13 @@ app.get('/api/sentry', async (req, res) => {
       Object.assign(acc, {
         [issue.title]: acc[issue.title]
           ? {
-              title: issue.title,
+              ...acc[issue.title],
               events: acc[issue.title].events + Number(issue.count),
               users: acc[issue.title].users + issue.userCount,
               duplicates: acc[issue.title].duplicates + 1,
             }
           : {
+              id: issue.id,
               title: issue.title,
               events: Number(issue.count),
               users: issue.userCount,
@@ -54,7 +55,19 @@ app.get('/api/sentry', async (req, res) => {
       }),
     {}
   );
-  const issues = Object.keys(issuesMap).map(title => issuesMap[title]);
+  const issues = Object.keys(issuesMap)
+    .map(title => issuesMap[title])
+    .sort((a, b) => {
+      if (a.duplicates !== b.duplicates) {
+        return b.duplicates - a.duplicates;
+      }
+
+      if (a.events !== b.events) {
+        return b.events - a.events;
+      }
+
+      return b.users - a.users;
+    });
   return res.json(issues);
 });
 app.use(middleware(compiler));

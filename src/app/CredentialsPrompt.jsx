@@ -2,7 +2,7 @@
 /* global window */
 import * as React from 'react';
 import styled from 'styled-components';
-import { Container, Heading, Input, Button, View, spacing } from '../design';
+import { Container, Heading, Paragraph, Input, Button, View, spacing } from '../design';
 
 type Credentials = {
   organizationSlug: string,
@@ -14,6 +14,10 @@ const Columns = styled(View).attrs({ as: 'div' })`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: ${spacing.normal};
+`;
+const Highlight = styled.span`
+  cursor: help;
+  text-decoration: underline;
 `;
 
 function CredentialsPrompt({
@@ -42,11 +46,15 @@ function CredentialsPrompt({
   };
 
   return (
-    <form onSubmit={onSubmit} style={{ opacity: isLoading ? 0.6 : 1 }}>
-      <Container>
-        <Heading level={1} marginBottom="large">
-          Fill in the following information to fetch issues from Sentry
-        </Heading>
+    <Container>
+      <form onSubmit={onSubmit} style={{ opacity: isLoading ? 0.6 : 1 }}>
+        <Heading level={1}>Sentry Buddy</Heading>
+        <Paragraph marginBottom="large">
+          The below information are required to fetch issues from your Sentry account. You can find
+          the organization and project slugs in the URL. For example, acme is the organization slug
+          and app the project slug in the following URL: https://sentry.io/<Highlight title="Organization Slug">acme</Highlight>/<Highlight title="Project Slug">app</Highlight>/
+          Regarding the API token, you can create one from your profile, under "API keys" or "API tokens" or "Auth tokens".
+        </Paragraph>
 
         <Columns marginBottom="normal">
           <Input
@@ -74,10 +82,10 @@ function CredentialsPrompt({
           required
         />
         <Button primary disabled={isLoading}>
-          {isLoading ? 'Fetching issues...' : 'Gogo Sentry!'}
+          {isLoading ? 'Fetching...' : 'Fetch issues'}
         </Button>
-      </Container>
-    </form>
+      </form>
+    </Container>
   );
 }
 

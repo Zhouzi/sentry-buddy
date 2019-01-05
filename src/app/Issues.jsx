@@ -1,30 +1,46 @@
 /* @flow */
+/* global window */
 import * as React from 'react';
 import { X } from 'styled-icons/octicons';
 import { User, Copy, DownArrow } from 'styled-icons/boxicons-solid';
 import { LinkExternal } from 'styled-icons/boxicons-regular';
-import { Cards, Container, Heading, Button, Pagination } from '../design';
+import { Cards, Container, Heading, Button, Pagination, Dropdown } from '../design';
 
 type Issue = {
+  id: string,
   title: string,
   events: number,
   users: number,
   duplicates: number,
 };
 
+const CATEGORIES = {
+  thirdParty: 'Third-Party',
+  browserSupport: 'Browser Support',
+  edgeCase: 'Edge Case',
+  needsFix: 'Needs Fix',
+};
+
 function Issues({ issues }: { issues: Issue[] }) {
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [_, rerender] = React.useState({});
 
   if (issues.length === 0) {
     return null;
   }
 
   const currentIssue = issues[currentIndex];
+  const currentIssueCategoryID = window.localStorage.getItem(`ISSUE_${currentIssue.id}_CATEGORY`);
   const onPrevious = () => {
     setCurrentIndex(index => (index - 1 < 0 ? issues.length - 1 : index - 1));
   };
   const onNext = () => {
     setCurrentIndex(index => (index + 1 >= issues.length ? 0 : index + 1));
+  };
+
+  const setIssueCategory = (issueID: string, categoryID: string) => {
+    window.localStorage.setItem(`ISSUE_${issueID}_CATEGORY`, categoryID);
+    rerender({});
   };
 
   return (
@@ -70,12 +86,25 @@ function Issues({ issues }: { issues: Issue[] }) {
             <LinkExternal size={18} />
           </Button.Icon>
         </Button>
-        <Button marginRight="normal" primary>
-          Tag
-          <Button.Icon>
-            <DownArrow size={18} />
-          </Button.Icon>
-        </Button>
+        <Dropdown.Container marginRight="normal">
+          {isOpen => (
+            <React.Fragment>
+              <Button primary>
+                {CATEGORIES[currentIssueCategoryID] || 'Uncategorized'}
+                <Button.Icon>
+                  <DownArrow size={18} />
+                </Button.Icon>
+              </Button>
+              <Dropdown isOpen={isOpen}>
+                {Object.keys(CATEGORIES).map(id => (
+                  <Dropdown.Item key={id} onClick={() => setIssueCategory(currentIssue.id, id)}>
+                    {CATEGORIES[id]}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown>
+            </React.Fragment>
+          )}
+        </Dropdown.Container>
         <Pagination current={currentIndex} onNext={onNext} onPrevious={onPrevious} />
       </Container>
     </React.Fragment>
