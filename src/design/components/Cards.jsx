@@ -29,8 +29,8 @@ Cards.Card.Icon = styled.div`
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  background-color: ${colors.orange};
-  background: linear-gradient(45deg, ${colors.yellow}, ${colors.orange});
+  background-color: ${colors.yellow};
+  background: linear-gradient(45deg, ${colors.yellowLight}, ${colors.yellow});
   margin-left: -14px;
   box-shadow: ${shadows.light};
 `;

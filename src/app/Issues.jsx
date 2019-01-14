@@ -84,21 +84,27 @@ function Issues({ issues }: { issues: Issue[] }) {
         <Button as="a" href={currentIssue.url} target="_blank" marginRight="normal" secondary>
           Open
           <Button.Icon>
-            <LinkExternal size={18} />
+            <LinkExternal size={14} />
           </Button.Icon>
         </Button>
         <Dropdown.Container marginRight="normal">
-          {isOpen => (
+          {({ isOpen, onOpen, onClose }) => (
             <React.Fragment>
-              <Button primary>
+              <Button onClick={onOpen} primary>
                 {CATEGORIES[currentIssueCategoryID] || 'Uncategorized'}
                 <Button.Icon>
-                  <DownArrow size={18} />
+                  <DownArrow size={14} />
                 </Button.Icon>
               </Button>
               <Dropdown isOpen={isOpen}>
                 {Object.keys(CATEGORIES).map(id => (
-                  <Dropdown.Item key={id} onClick={() => setIssueCategory(currentIssue.id, id)}>
+                  <Dropdown.Item
+                    key={id}
+                    onClick={() => {
+                      setIssueCategory(currentIssue.id, id);
+                      onClose();
+                    }}
+                  >
                     {CATEGORIES[id]}
                   </Dropdown.Item>
                 ))}
@@ -106,7 +112,12 @@ function Issues({ issues }: { issues: Issue[] }) {
             </React.Fragment>
           )}
         </Dropdown.Container>
-        <Pagination current={currentIndex} onNext={onNext} onPrevious={onPrevious} />
+        <Pagination
+          current={currentIndex}
+          count={issues.length}
+          onNext={onNext}
+          onPrevious={onPrevious}
+        />
       </Container>
     </React.Fragment>
   );

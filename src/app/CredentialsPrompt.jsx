@@ -48,12 +48,16 @@ function CredentialsPrompt({
   return (
     <Container>
       <form onSubmit={onSubmit} style={{ opacity: isLoading ? 0.6 : 1 }}>
-        <Heading level={1}>Sentry Buddy</Heading>
+        <Heading level={1} marginBottom="smaller">
+          Sentry Buddy
+        </Heading>
         <Paragraph marginBottom="large">
           The below information are required to fetch issues from your Sentry account. You can find
           the organization and project slugs in the URL. For example, acme is the organization slug
-          and app the project slug in the following URL: https://sentry.io/<Highlight title="Organization Slug">acme</Highlight>/<Highlight title="Project Slug">app</Highlight>/
-          Regarding the API token, you can create one from your profile, under "API keys" or "API tokens" or "Auth tokens".
+          and app the project slug in the following URL: https://sentry.io/
+          <Highlight title="Organization Slug">acme</Highlight>/
+          <Highlight title="Project Slug">app</Highlight>/ Regarding the API token, you can create
+          one from your profile, under {'"API keys"'} or {'"API tokens"'} or {'"Auth tokens"'}.
         </Paragraph>
 
         <Columns marginBottom="normal">

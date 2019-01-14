@@ -43,10 +43,11 @@ Dropdown.Item = styled.button`
   border: 0;
   background: transparent;
   cursor: pointer;
+  text-align: left;
 
   display: block;
   width: 100%;
-  font-size: ${fontSize.large};
+  font-size: ${fontSize.normal};
   line-height: ${lineHeight.small};
   padding: ${spacing.small} ${spacing.large};
   transition: background-color 150ms ease-out;
@@ -65,10 +66,14 @@ Dropdown.Container = function DropdownContainerWithClickHandler({
   children,
   ...props
 }: {
-  children: (isOpen: boolean) => React.Node,
+  children: ({ isOpen: boolean, onOpen: () => void, onClose: () => void }) => React.Node,
 }) {
   const [isOpen, setOpen] = React.useState(false);
   const container = React.useRef(null);
+
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+
   const onClickOutside = (event: *) => {
     if (container.current && container.current.contains(event.target)) {
       return;
@@ -76,7 +81,6 @@ Dropdown.Container = function DropdownContainerWithClickHandler({
 
     setOpen(false);
   };
-
   React.useEffect(() => {
     window.document.addEventListener('click', onClickOutside);
 
@@ -86,8 +90,8 @@ Dropdown.Container = function DropdownContainerWithClickHandler({
   }, []);
 
   return (
-    <DropdownContainer {...props} onClick={() => setOpen(true)} ref={container}>
-      {children(isOpen)}
+    <DropdownContainer {...props} ref={container}>
+      {children({ isOpen, onOpen, onClose })}
     </DropdownContainer>
   );
 };

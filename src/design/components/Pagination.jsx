@@ -36,10 +36,12 @@ const Label = styled.div``;
 
 function Pagination({
   current,
+  count,
   onNext,
   onPrevious,
 }: {
   current: number,
+  count: number,
   onNext: () => void,
   onPrevious: () => void,
 }) {
@@ -51,7 +53,9 @@ function Pagination({
         <Button onClick={onPrevious}>
           <KeyboardArrowLeft size={14} />
         </Button>
-        <Label>{current + 1}</Label>
+        <Label>
+          {current + 1} of {count}
+        </Label>
         <Button onClick={onNext}>
           <KeyboardArrowRight size={14} />
         </Button>

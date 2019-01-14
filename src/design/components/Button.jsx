@@ -14,9 +14,9 @@ const Button = styled(View).attrs({ as: 'button' })`
   text-decoration: none;
 
   position: relative;
-  font-size: ${fontSize.large};
+  font-size: ${fontSize.normal};
   line-height: ${lineHeight.small};
-  padding: ${spacing.small} ${spacing.larger};
+  padding: ${spacing.small} ${spacing.large};
   border-radius: ${misc.borderRadius};
   transition: background-color 150ms ease-out;
 
@@ -50,8 +50,8 @@ const Button = styled(View).attrs({ as: 'button' })`
 `;
 Button.Icon = styled.span`
   display: inline-block;
-  padding-left: ${spacing.larger};
-  margin-right: ${calc(`calc(${spacing.small} - ${spacing.larger})`)};
+  padding-left: ${spacing.large};
+  margin-right: ${calc(`calc(${spacing.small} - ${spacing.large})`)};
 `;
 
 export default Button;

@@ -1,7 +1,6 @@
 /* @flow */
 import * as React from 'react';
 import Helmet from 'react-helmet';
-import rgba from 'hex-rgba';
 import { createGlobalStyle } from 'styled-components';
 import { colors, fontSize, fontWeight, lineHeight } from '../constants';
 
@@ -17,7 +16,6 @@ const Reset = createGlobalStyle`
     line-height: ${lineHeight.normal};
     color: ${colors.white};
     background-color: ${colors.black};
-    background: linear-gradient(45deg, ${rgba(colors.black, 94)}, ${colors.black});
   }
 `;
 
