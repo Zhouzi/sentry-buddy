@@ -3,7 +3,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import 'modern-normalize/modern-normalize.css';
-import App from './app/App';
+import App from './app';
 
 const root = window.document.createElement('div');
 window.document.body.appendChild(root);

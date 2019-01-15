@@ -9,6 +9,7 @@ import Heading from './Heading';
 import Input from './Input';
 import Pagination from './Pagination';
 import Paragraph from './Paragraph';
+import Tabs from './Tabs';
 import View from './View';
 
 export {
@@ -22,5 +23,6 @@ export {
   Input,
   Pagination,
   Paragraph,
+  Tabs,
   View,
 };
