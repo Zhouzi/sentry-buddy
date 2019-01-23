@@ -6,6 +6,7 @@ const express = require('express');
 const open = require('opn');
 const config = require('./webpack.config');
 
+const IS_DEV = process.env.NODE_ENV !== 'production';
 const baseURL = 'https://sentry.io/api/0';
 
 async function getAll(url, token, results = []) {
@@ -86,5 +87,9 @@ app.get('/api/sentry', async (req, res) => {
 });
 app.use(middleware(compiler));
 
-const port = 3000;
-app.listen(port, () => open(`http://localhost:${port}`));
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  if (IS_DEV) {
+    open(`http://localhost:${port}`);
+  }
+});
