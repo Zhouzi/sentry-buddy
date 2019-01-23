@@ -3,7 +3,7 @@
   "scripts": {
     "lint": "eslint .",
     "types": "flow",
-    "start": "node bin.js"
+    "start": "node ./bin.js"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
