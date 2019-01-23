@@ -37,7 +37,7 @@ const TabsItemButton = styled.button`
   letter-spacing: 0.05rem;
   text-transform: uppercase;
   color: ${rgba(colors.white, 60)};
-  padding: ${spacing.smaller} ${spacing.small};
+  padding: ${spacing.smaller} ${spacing.small} ${spacing.smaller} 0;
 
   ${props =>
     props.isActive &&

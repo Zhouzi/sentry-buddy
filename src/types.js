@@ -8,3 +8,9 @@ export type Issue = {
   duplicates: number,
   url: string,
 };
+
+export type Credentials = {
+  organizationSlug: string,
+  projectSlug: string,
+  token: string,
+};

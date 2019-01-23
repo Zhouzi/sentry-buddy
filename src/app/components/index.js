@@ -1,4 +1,4 @@
 /* @flow */
-import App from './components';
+import App from './App';
 
 export default App;

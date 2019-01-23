@@ -1,9 +1,10 @@
 /* @flow */
 /* global fetch */
 import * as React from 'react';
+import { Content, Head } from '../../design';
+import storage from '../storage';
 import CredentialsPrompt from './CredentialsPrompt';
-import { Content, Head } from '../design';
-import Issues from './Issues';
+import IssuesCarousel from './IssuesCarousel';
 
 function App() {
   const [issues, setIssues] = React.useState(null);
@@ -17,6 +18,13 @@ function App() {
     const { organizationSlug, projectSlug, token } = credentials;
 
     setLoading(true);
+
+    storage.setCredentials({
+      organizationSlug,
+      projectSlug,
+      token,
+    });
+
     fetch(
       `/api/sentry?organizationSlug=${organizationSlug}&projectSlug=${projectSlug}&token=${token}`
     )
@@ -31,9 +39,13 @@ function App() {
     <Content>
       <Head />
       {issues == null ? (
-        <CredentialsPrompt isLoading={isLoading} onSubmitCredentials={onSubmitCredentials} />
+        <CredentialsPrompt
+          isLoading={isLoading}
+          credentials={storage.getCredentials()}
+          onSubmitCredentials={onSubmitCredentials}
+        />
       ) : (
-        <Issues issues={issues} />
+        <IssuesCarousel issues={issues} />
       )}
     </Content>
   );

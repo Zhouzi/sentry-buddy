@@ -1,11 +1,12 @@
 /* @flow */
 import * as React from 'react';
-import { X } from 'styled-icons/octicons';
-import { User, Copy, DownArrow } from 'styled-icons/boxicons-solid';
+import { DownArrow } from 'styled-icons/boxicons-solid';
 import { LinkExternal } from 'styled-icons/boxicons-regular';
-import type { Issue } from '../types';
-import { Cards, Container, Heading, Button, Pagination, Dropdown, Tabs } from '../design';
-import storage from '../storage';
+import type { Issue } from '../../../types';
+import { Container, Button, Pagination, Dropdown } from '../../../design';
+import storage from '../../storage';
+import TagsTabs from './TagsTabs';
+import IssueDetails from './IssueDetails';
 
 const CATEGORIES = {
   thirdParty: 'Third-Party',
@@ -14,9 +15,10 @@ const CATEGORIES = {
   needsFix: 'Needs Fix',
 };
 
-function Issues({ issues }: { issues: Issue[] }) {
+function IssuesCarousel({ issues }: { issues: Issue[] }) {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [currentTagID, setCurrentTagID] = React.useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [_, rerender] = React.useState({});
 
   if (issues.length === 0) {
@@ -28,9 +30,17 @@ function Issues({ issues }: { issues: Issue[] }) {
     setCurrentIndex(0);
   };
 
-  const filteredIssues = issues.filter(issue => storage.getIssueTag(issue) === currentTagID);
+  const filteredIssues = issues.filter(issue => {
+    if (currentTagID == null) {
+      // Unfiltered list
+      return true;
+    }
+
+    const tag = storage.getIssueTag(issue);
+    return tag ? tag.id === currentTagID : false;
+  });
   const currentIssue = filteredIssues[currentIndex];
-  const currentIssueTagID = currentIssue && storage.getIssueTag(currentIssue);
+  const currentIssueTag = currentIssue ? storage.getIssueTag(currentIssue) : null;
   const onPrevious = () => {
     setCurrentIndex(index => (index - 1 < 0 ? filteredIssues.length - 1 : index - 1));
   };
@@ -46,52 +56,12 @@ function Issues({ issues }: { issues: Issue[] }) {
   return (
     <React.Fragment>
       <Container marginBottom="normal">
-        <Tabs>
-          <Tabs.Item isActive={currentTagID === null} onClick={() => onChangeTagID(null)}>
-            Untagged
-          </Tabs.Item>
-          {Object.keys(CATEGORIES).map(id => (
-            <Tabs.Item key={id} isActive={currentTagID === id} onClick={() => onChangeTagID(id)}>
-              {CATEGORIES[id]}
-            </Tabs.Item>
-          ))}
-        </Tabs>
+        <TagsTabs currentTagID={currentTagID} onChangeTagID={onChangeTagID} />
       </Container>
       {currentIssue ? (
         <React.Fragment>
           <Container marginBottom="large">
-            <Heading level={1}>{currentIssue.title}</Heading>
-          </Container>
-          <Container marginBottom="large">
-            <Cards>
-              <Cards.Card>
-                <Cards.Card.Icon>
-                  <X size={22} />
-                </Cards.Card.Icon>
-                <Cards.Card.Content>
-                  <Cards.Card.Content.Title>{currentIssue.events}</Cards.Card.Content.Title>
-                  <Cards.Card.Content.Label>Events</Cards.Card.Content.Label>
-                </Cards.Card.Content>
-              </Cards.Card>
-              <Cards.Card>
-                <Cards.Card.Icon>
-                  <User size={22} />
-                </Cards.Card.Icon>
-                <Cards.Card.Content>
-                  <Cards.Card.Content.Title>{currentIssue.users}</Cards.Card.Content.Title>
-                  <Cards.Card.Content.Label>Users</Cards.Card.Content.Label>
-                </Cards.Card.Content>
-              </Cards.Card>
-              <Cards.Card>
-                <Cards.Card.Icon>
-                  <Copy size={22} />
-                </Cards.Card.Icon>
-                <Cards.Card.Content>
-                  <Cards.Card.Content.Title>{currentIssue.duplicates}</Cards.Card.Content.Title>
-                  <Cards.Card.Content.Label>Duplicates</Cards.Card.Content.Label>
-                </Cards.Card.Content>
-              </Cards.Card>
-            </Cards>
+            <IssueDetails issue={currentIssue} />
           </Container>
           <Container marginBottom="large">
             <Button as="a" href={currentIssue.url} target="_blank" marginRight="normal" secondary>
@@ -104,7 +74,7 @@ function Issues({ issues }: { issues: Issue[] }) {
               {({ isOpen, onOpen, onClose }) => (
                 <React.Fragment>
                   <Button onClick={onOpen} primary>
-                    {(currentIssueTagID && CATEGORIES[currentIssueTagID]) || 'Untagged'}
+                    {currentIssueTag ? currentIssueTag.label : 'Untagged'}
                     <Button.Icon>
                       <DownArrow size={14} />
                     </Button.Icon>
@@ -127,17 +97,17 @@ function Issues({ issues }: { issues: Issue[] }) {
             </Dropdown.Container>
             <Pagination
               current={currentIndex}
-              count={filteredIssues.length}
+              count={issues.length}
               onNext={onNext}
               onPrevious={onPrevious}
             />
           </Container>
         </React.Fragment>
       ) : (
-        <React.Fragment>There are no issues with this tag.</React.Fragment>
+        <Container>There are no issues with this tag.</Container>
       )}
     </React.Fragment>
   );
 }
 
-export default Issues;
+export default IssuesCarousel;

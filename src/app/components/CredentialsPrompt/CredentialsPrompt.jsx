@@ -1,14 +1,8 @@
 /* @flow */
-/* global window */
 import * as React from 'react';
 import styled from 'styled-components';
-import { Container, Heading, Paragraph, Input, Button, View, spacing } from '../design';
-
-type Credentials = {
-  organizationSlug: string,
-  projectSlug: string,
-  token: string,
-};
+import { Container, Heading, Paragraph, Input, Button, View, spacing } from '../../../design';
+import type { Credentials } from '../../../types';
 
 const Columns = styled(View).attrs({ as: 'div' })`
   display: grid;
@@ -21,27 +15,22 @@ const Highlight = styled.span`
 `;
 
 function CredentialsPrompt({
+  credentials,
   onSubmitCredentials,
   isLoading,
 }: {
+  credentials: Credentials,
   onSubmitCredentials: (credentials: Credentials) => void,
   isLoading: boolean,
 }) {
   const [organizationSlug, setOrganizationSlug] = React.useState(
-    window.localStorage.getItem('organizationSlug') || ''
+    credentials.organizationSlug
   );
-  const [projectSlug, setProjectSlug] = React.useState(
-    window.localStorage.getItem('projectSlug') || ''
-  );
-  const [token, setToken] = React.useState(window.localStorage.getItem('token') || '');
+  const [projectSlug, setProjectSlug] = React.useState(credentials.projectSlug);
+  const [token, setToken] = React.useState(credentials.token);
 
   const onSubmit = (event: SyntheticEvent<*>) => {
     event.preventDefault();
-
-    window.localStorage.setItem('organizationSlug', organizationSlug);
-    window.localStorage.setItem('projectSlug', projectSlug);
-    window.localStorage.setItem('token', token);
-
     onSubmitCredentials({ organizationSlug, projectSlug, token });
   };
 
