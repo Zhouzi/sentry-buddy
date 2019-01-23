@@ -3,7 +3,9 @@
   "scripts": {
     "lint": "eslint .",
     "types": "flow",
-    "start": "node ./bin.js"
+    "build": "webpack -p",
+    "postinstall": "npm run build",
+    "start": "node ./server.js"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -25,6 +27,7 @@
     "html-webpack-plugin": "^3.2.0",
     "prettier": "^1.15.3",
     "style-loader": "^0.23.1",
+    "webpack": "^4.29.0",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.14"
   },
@@ -34,7 +37,6 @@
     "hex-rgba": "^1.0.2",
     "modern-normalize": "^0.5.0",
     "modular-scale": "^5.1.0",
-    "opn": "^5.4.0",
     "parse-link-header": "^1.0.1",
     "react": "^16.7.0-alpha.2",
     "react-combo-keys": "^0.3.1",
@@ -42,8 +44,6 @@
     "react-helmet": "^5.2.0",
     "reduce-css-calc": "^2.1.5",
     "styled-components": "^4.1.2",
-    "styled-icons": "^5.5.0",
-    "webpack": "^4.29.0",
-    "webpack-dev-middleware": "^3.4.0"
+    "styled-icons": "^5.5.0"
   }
 }

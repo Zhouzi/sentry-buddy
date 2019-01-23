@@ -1,12 +1,8 @@
+const path = require('path');
 const axios = require('axios');
 const parseLinkHeader = require('parse-link-header');
-const webpack = require('webpack');
-const middleware = require('webpack-dev-middleware');
 const express = require('express');
-const open = require('opn');
-const config = require('./webpack.config');
 
-const IS_DEV = process.env.NODE_ENV !== 'production';
 const baseURL = 'https://sentry.io/api/0';
 
 async function getAll(url, token, results = []) {
@@ -36,7 +32,6 @@ function getSearchQuery(title) {
   return longestPart.trim();
 }
 
-const compiler = webpack(config);
 const app = express();
 
 app.get('/api/sentry', async (req, res) => {
@@ -85,11 +80,8 @@ app.get('/api/sentry', async (req, res) => {
     });
   return res.json(issues);
 });
-app.use(middleware(compiler));
+app.use(express.static('dist'));
+app.use((req, res) => res.sendFile(path.join(__dirname, './dist/index.html')));
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  if (IS_DEV) {
-    open(`http://localhost:${port}`);
-  }
-});
+app.listen(port, () => console.log(`http://localhost:${port}`));
