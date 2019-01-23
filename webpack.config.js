@@ -12,6 +12,13 @@ module.exports = {
   node: {
     fs: 'empty',
   },
+  devServer: {
+    port: 3001,
+    open: true,
+    proxy: {
+      '/api': 'http://localhost:3000',
+    },
+  },
   module: {
     rules: [
       {
