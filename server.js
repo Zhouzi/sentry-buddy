@@ -91,7 +91,7 @@ app.get('/api/sentry', async (req, res) => {
 
       return b.users - a.users;
     });
-  return res.json(issues);
+  res.json(issues);
 });
 app.use(express.static('dist'));
 app.use((req, res) => res.sendFile(path.join(__dirname, './dist/index.html')));
