@@ -4,11 +4,11 @@ import type { Issue, Credentials } from '../types';
 import { CATEGORIES } from './constants';
 
 function setIssueTag(issue: Issue, tagID: string): void {
-  window.localStorage.setItem(`ISSUE_${issue.id}_TAG`, tagID);
+  window.localStorage.setItem(issue.title, tagID);
 }
 
 function getIssueTag(issue: Issue): ?{ id: string, label: string } {
-  const tagID = window.localStorage.getItem(`ISSUE_${issue.id}_TAG`);
+  const tagID = window.localStorage.getItem(issue.title);
 
   if (tagID == null || CATEGORIES[tagID] == null) {
     return null;
