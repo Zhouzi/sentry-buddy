@@ -64,7 +64,14 @@ function IssuesCarousel({ issues }: { issues: Issue[] }) {
             <IssueDetails issue={currentIssue} />
           </Container>
           <Container marginBottom="large">
-            <Button as="a" href={currentIssue.url} target="_blank" marginRight="normal" secondary>
+            <Button
+              as="a"
+              type={null}
+              href={currentIssue.url}
+              target="_blank"
+              marginRight="normal"
+              secondary
+            >
               Open
               <Button.Icon>
                 <LinkExternal size={14} />

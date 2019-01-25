@@ -5,7 +5,7 @@ import rgba from 'hex-rgba';
 import { fontSize, lineHeight, colors, spacing, misc } from '../constants';
 import View from './View';
 
-const Button = styled(View).attrs({ as: 'button' })`
+const Button = styled(View).attrs({ as: 'button', type: 'button' })`
   font: inherit;
   color: inherit;
   border: ${misc.borderWidth} solid transparent;
@@ -45,6 +45,18 @@ const Button = styled(View).attrs({ as: 'button' })`
       &:focus,
       &:hover {
         background-color: ${colors.blueDark};
+      }
+    `}
+  
+  ${props =>
+    props.link &&
+    css`
+      color: ${colors.pink};
+      text-decoration: underline;
+
+      &:focus,
+      &:hover {
+        color: ${colors.pinkDark};
       }
     `}
 `;

@@ -2,6 +2,8 @@ const path = require('path');
 const axios = require('axios');
 const parseLinkHeader = require('parse-link-header');
 const express = require('express');
+const DEMO_CREDENTIALS = require('./src/DEMO_CREDENTIALS');
+const DEMO_ISSUES = require('./src/DEMO_ISSUES');
 
 const baseURL = 'https://sentry.io/api/0';
 
@@ -36,6 +38,17 @@ const app = express();
 
 app.get('/api/sentry', async (req, res) => {
   const { organizationSlug, projectSlug, token } = req.query;
+
+  if (
+    organizationSlug === DEMO_CREDENTIALS.organizationSlug &&
+    projectSlug === DEMO_CREDENTIALS.projectSlug &&
+    token === DEMO_CREDENTIALS.token
+  ) {
+    // Fake delay
+    setTimeout(() => res.json(DEMO_ISSUES), 3000);
+    return;
+  }
+
   const rawIssues = await getIssues({
     organizationSlug,
     projectSlug,

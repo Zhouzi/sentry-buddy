@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1",
+    "title": "TypeError: window.document.addEventListener(...) is null",
+    "events": 225,
+    "users": 56,
+    "duplicates": 30,
+    "url": "https://sentry.io/acme/app?query=is%3Aunresolved%20window.document.addEventListener(...)%20is%20null"
+  },
+  {
+    "id": "2",
+    "title": "NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child o...",
+    "events": 31480,
+    "users": 13414,
+    "duplicates": 23,
+    "url": "https://sentry.io/acme/app?query=is%3Aunresolved%20The%20node%20to%20be%20removed%20is%20not%20a%20child%20o..."
+  },
+  {
+    "id": "3",
+    "title": "TypeError: Cannot read property 'name' of null",
+    "events": 18,
+    "users": 15,
+    "duplicates": 6,
+    "url": "https://sentry.io/acme/app?query=is%3Aunresolved%20Cannot%20read%20property%20'name'%20of%20null"
+  },
+  {
+    "id": "4",
+    "title": "TypeError: window.ga is not a function",
+    "events": 313,
+    "users": 99,
+    "duplicates": 2,
+    "url": "https://sentry.io/acme/app?query=is%3Aunresolved%20window.ga%20is%20not%20a%20function"
+  },
+  {
+    "id": "5",
+    "title": "TypeError: Cannot read property 'address' of undefined",
+    "events": 44,
+    "users": 3,
+    "duplicates": 1,
+    "url": "https://sentry.io/acme/app?query=is%3Aunresolved%20TypeError:%20Cannot%20read%20property%20'address'%20of%20undefined"
+  },
+  {
+    "id": "6",
+    "title": "TypeError: e[t] is undefined",
+    "events": 2,
+    "users": 2,
+    "duplicates": 1,
+    "url": "https://sentry.io/acme/app?query=is%3Aunresolved%20e%5Bt%5D%20is%20undefined"
+  },
+  {
+    "id": "7",
+    "title": "TypeError: Cannot read property 'body' of null",
+    "events": 508,
+    "users": 246,
+    "duplicates": 0,
+    "url": "https://sentry.io/acme/app/issues/7/"
+  },
+  {
+    "id": "8",
+    "title": "URIError: URI malformed",
+    "events": 493,
+    "users": 1,
+    "duplicates": 0,
+    "url": "https://sentry.io/acme/app/issues/8/"
+  },
+  {
+    "id": "9",
+    "title": "TypeError: n is null",
+    "events": 83,
+    "users": 28,
+    "duplicates": 0,
+    "url": "https://sentry.io/acme/app/issues/9/"
+  },
+  {
+    "id": "10",
+    "title": "QuotaExceededError: QuotaExceededError",
+    "events": 25,
+    "users": 19,
+    "duplicates": 0,
+    "url": "https://sentry.io/acme/app/issues/10/"
+  }
+]

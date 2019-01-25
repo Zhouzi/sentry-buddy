@@ -1,6 +1,7 @@
 /* @flow */
 import * as React from 'react';
 import styled from 'styled-components';
+import DEMO_CREDENTIALS from '../../../DEMO_CREDENTIALS';
 import { Container, Heading, Paragraph, Input, Button, View, spacing } from '../../../design';
 import type { Credentials } from '../../../types';
 
@@ -23,15 +24,21 @@ function CredentialsPrompt({
   onSubmitCredentials: (credentials: Credentials) => void,
   isLoading: boolean,
 }) {
-  const [organizationSlug, setOrganizationSlug] = React.useState(
-    credentials.organizationSlug
-  );
+  const [organizationSlug, setOrganizationSlug] = React.useState(credentials.organizationSlug);
   const [projectSlug, setProjectSlug] = React.useState(credentials.projectSlug);
   const [token, setToken] = React.useState(credentials.token);
 
   const onSubmit = (event: SyntheticEvent<*>) => {
     event.preventDefault();
     onSubmitCredentials({ organizationSlug, projectSlug, token });
+  };
+
+  const onSkipToDemo = () => {
+    onSubmitCredentials({
+      organizationSlug: DEMO_CREDENTIALS.organizationSlug,
+      projectSlug: DEMO_CREDENTIALS.projectSlug,
+      token: DEMO_CREDENTIALS.token,
+    });
   };
 
   return (
@@ -42,13 +49,14 @@ function CredentialsPrompt({
         </Heading>
         <Paragraph marginBottom="large">
           The below information are required to fetch issues from your Sentry account. You can find
-          the organization and project slugs in the URL. For example, acme is the organization slug
-          and app the project slug in the following URL: https://sentry.io/
-          <Highlight title="Organization Slug">acme</Highlight>/
-          <Highlight title="Project Slug">app</Highlight>/ Regarding the API token, you can create
-          one from your profile, under {'"API keys"'} or {'"API tokens"'} or {'"Auth tokens"'}.
+          the organization and project slugs in the URL. For example,{' '}
+          {DEMO_CREDENTIALS.organizationSlug} is the organization slug and{' '}
+          {DEMO_CREDENTIALS.projectSlug} the project slug in the following URL: https://sentry.io/
+          <Highlight title="Organization Slug">{DEMO_CREDENTIALS.organizationSlug}</Highlight>/
+          <Highlight title="Project Slug">{DEMO_CREDENTIALS.projectSlug}</Highlight>/ Regarding the
+          API token, you can create one from your profile, under {'"API keys"'} or {'"API tokens"'}{' '}
+          or {'"Auth tokens"'}.
         </Paragraph>
-
         <Columns marginBottom="normal">
           <Input
             type="text"
@@ -65,7 +73,6 @@ function CredentialsPrompt({
             required
           />
         </Columns>
-
         <Input
           marginBottom="normal"
           type="text"
@@ -74,8 +81,11 @@ function CredentialsPrompt({
           placeholder="API Token"
           required
         />
-        <Button primary disabled={isLoading}>
+        <Button type="submit" primary disabled={isLoading}>
           {isLoading ? 'Fetching...' : 'Fetch issues'}
+        </Button>
+        <Button link onClick={onSkipToDemo}>
+          Skip to demo
         </Button>
       </form>
     </Container>
