@@ -2,6 +2,8 @@
 
 Review Sentry issues one by one, the easy way.
 
+![](./screenshot.png)
+
 ## Pain Points
 
 I built Sentry Buddy to fix 3 of my pain points with Sentry:
@@ -12,7 +14,7 @@ With Sentry Buddy, you can tag issues. For example, you can tag an issue as "bro
 
 > Although Sentry does a great job at grouping events, some are still reported as different issues.
 
-Issues with an identical message are grouped together. You can see how many duplicates there are for an issue an you can search them on Sentry by clicking the "Search" button. From there, you can merge the real duplicates.
+Issues with an identical message are grouped together. You can see how many duplicates there are for an issue an you can search them on Sentry by clicking the "Open" button. From there, you can merge the real duplicates.
 
 > The UI is great to have an overview and browse the issues, not so when you want to review them one by one.
 
