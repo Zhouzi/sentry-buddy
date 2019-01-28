@@ -31,13 +31,13 @@ function IssuesCarousel({ issues }: { issues: Issue[] }) {
   };
 
   const filteredIssues = issues.filter(issue => {
-    if (currentTagID == null) {
-      // Unfiltered list
-      return true;
+    const tag = storage.getIssueTag(issue);
+
+    if (tag == null) {
+      return currentTagID == null;
     }
 
-    const tag = storage.getIssueTag(issue);
-    return tag ? tag.id === currentTagID : false;
+    return tag.id === currentTagID;
   });
   const currentIssue = filteredIssues[currentIndex];
   const currentIssueTag = currentIssue ? storage.getIssueTag(currentIssue) : null;
