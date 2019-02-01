@@ -3,10 +3,9 @@
 export default {
   black: '#21022b',
   white: '#fff',
-  yellowLight: '#edee11',
-  yellow: '#dd5b16',
-  pink: '#e60ac9',
-  pinkDark: '#b7099d',
-  blue: '#0ac9e6',
-  blueDark: '#09b4ce',
+  yellow: '#ffc20e',
+  pink: '#f90cb5',
+  pinkDark: '#c50a8f',
+  blue: '#0cb5f9',
+  blueDark: '#0b87bf',
 };

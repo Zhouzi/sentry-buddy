@@ -13,12 +13,6 @@ Cards.Card = styled.div`
   display: flex;
   align-items: center;
   background-color: ${rgba(colors.white, 80)};
-  background: linear-gradient(
-    45deg,
-    ${rgba(colors.white, 900)},
-    ${rgba(colors.white, 70)} 60%,
-    ${rgba(colors.white, 50)}
-  );
   border-radius: ${misc.borderRadius};
   padding: ${spacing.small} ${spacing.larger} ${spacing.normal} 0;
 `;
@@ -30,7 +24,6 @@ Cards.Card.Icon = styled.div`
   width: 60px;
   border-radius: 50%;
   background-color: ${colors.yellow};
-  background: linear-gradient(45deg, ${colors.yellowLight}, ${colors.yellow});
   margin-left: -14px;
   box-shadow: ${shadows.light};
 `;
