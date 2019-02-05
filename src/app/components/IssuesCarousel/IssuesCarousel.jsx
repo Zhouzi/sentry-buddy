@@ -104,7 +104,7 @@ function IssuesCarousel({ issues }: { issues: Issue[] }) {
             </Dropdown.Container>
             <Pagination
               current={currentIndex}
-              count={issues.length}
+              count={filteredIssues.length}
               onNext={onNext}
               onPrevious={onPrevious}
             />
