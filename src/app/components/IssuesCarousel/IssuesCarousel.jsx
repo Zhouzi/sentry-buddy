@@ -17,7 +17,7 @@ const CATEGORIES = {
 
 function IssuesCarousel({ issues }: { issues: Issue[] }) {
   const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [currentTagID, setCurrentTagID] = React.useState(null);
+  const [currentTagID, setCurrentTagID] = React.useState('all');
   // eslint-disable-next-line no-unused-vars
   const [_, rerender] = React.useState({});
 
@@ -32,6 +32,10 @@ function IssuesCarousel({ issues }: { issues: Issue[] }) {
 
   const filteredIssues = issues.filter(issue => {
     const tag = storage.getIssueTag(issue);
+
+    if (currentTagID === 'all') {
+      return true;
+    }
 
     if (tag == null) {
       return currentTagID == null;

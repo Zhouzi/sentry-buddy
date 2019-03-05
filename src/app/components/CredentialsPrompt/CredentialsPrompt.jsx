@@ -42,8 +42,8 @@ function CredentialsPrompt({
   };
 
   return (
-    <Container>
-      <form onSubmit={onSubmit} style={{ opacity: isLoading ? 0.6 : 1 }}>
+    <Container disabled={isLoading}>
+      <form onSubmit={onSubmit}>
         <Heading level={1} marginBottom="smaller">
           Sentry Buddy
         </Heading>

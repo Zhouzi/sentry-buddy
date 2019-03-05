@@ -12,6 +12,9 @@ function TagsTabs({
 }) {
   return (
     <Tabs>
+      <Tabs.Item isActive={currentTagID === 'all'} onClick={() => onChangeTagID('all')}>
+        All
+      </Tabs.Item>
       <Tabs.Item isActive={currentTagID === null} onClick={() => onChangeTagID(null)}>
         Untagged
       </Tabs.Item>
